@@ -4,7 +4,8 @@
   "description": "server for digirecipe",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "author": "Allan Cheung",
   "license": "ISC",
