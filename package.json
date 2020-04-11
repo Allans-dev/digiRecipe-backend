@@ -1,11 +1,10 @@
 {
   "name": "digirecipe-backend",
   "version": "1.0.0",
-  "description": "backend for digirecipe",
+  "description": "server for digirecipe",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "index.js"
+    "dev": "nodemon index.js"
   },
   "author": "Allan Cheung",
   "license": "ISC",
