@@ -27,18 +27,34 @@ app.use(bodyParser.json());
 
 app.use(authRoutes);
 
-mongoose.connect(mongoUri, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-});
+const connectDb = async () => {
+  try {
+    await mongoose.connect(mongoUri, {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useUnifiedTopology: true,
+    });
+    console.log('Connected to mongo instance');
+  } catch (error) {
+    console.log('error connecting to mongo', err);
+    process.exit(1);
+  }
+}
 
-mongoose.connection.on('connected', () => {
-  console.log('Connected to mongo instance');
-});
-mongoose.connection.on('error', (err=> {
-  console.log('error connecting to mongo', err);
-}))
+connectDb();
+
+// mongoose.connect(mongoUri, {
+//   useNewUrlParser: true,
+//   useCreateIndex: true,
+//   useUnifiedTopology: true,
+// });
+
+// mongoose.connection.on('connected', () => {
+//   console.log('Connected to mongo instance');
+// });
+// mongoose.connection.on('error', (err=> {
+//   console.log('error connecting to mongo', err);
+// }))
 
 app.get("/", requireAuth, (req, res) => res.send(`user email: ${req.user.email}`));
 
