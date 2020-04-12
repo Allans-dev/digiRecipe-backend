@@ -9,7 +9,8 @@ const requireAuth = require('./src/middlewares/requireAuth');
 const authRoutes = require('./src/routes/authRoutes');
 
 const app = express();
-const mongoUri = `mongodb+srv://${process.env.MONGODB_USERNAME_PASSWORD}@cluster0-wleoq.mongodb.net/DigiRecipe?retryWrites=true&w=majority`;
+// const mongoUri = `mongodb+srv://${process.env.MONGODB_USERNAME_PASSWORD}@cluster0-wleoq.mongodb.net/DigiRecipe?retryWrites=true&w=majority`;
+const mongoUri = process.env.MONGO_URI;
 
 const cors = require('cors');
 const port = process.env.PORT || 6000;
@@ -42,19 +43,6 @@ const connectDb = async () => {
 }
 
 connectDb();
-
-// mongoose.connect(mongoUri, {
-//   useNewUrlParser: true,
-//   useCreateIndex: true,
-//   useUnifiedTopology: true,
-// });
-
-// mongoose.connection.on('connected', () => {
-//   console.log('Connected to mongo instance');
-// });
-// mongoose.connection.on('error', (err=> {
-//   console.log('error connecting to mongo', err);
-// }))
 
 app.get("/", requireAuth, (req, res) => res.send(`user email: ${req.user.email}`));
 
