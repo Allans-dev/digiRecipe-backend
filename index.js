@@ -37,7 +37,7 @@ const connectDb = async () => {
     });
     console.log('Connected to mongo instance');
   } catch (error) {
-    console.log('error connecting to mongo', err);
+    console.log('error connecting to mongo', error);
     process.exit(1);
   }
 }
