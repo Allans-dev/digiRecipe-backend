@@ -9,8 +9,7 @@ const requireAuth = require('./src/middlewares/requireAuth');
 const authRoutes = require('./src/routes/authRoutes');
 
 const app = express();
-// const mongoUri = `mongodb+srv://${process.env.MONGODB_USERNAME_PASSWORD}@cluster0-wleoq.mongodb.net/DigiRecipe?retryWrites=true&w=majority`;
-const mongoUri = process.env.MONGO_URI;
+const mongoUri = process.env.MONGODB_URI;
 
 const cors = require('cors');
 const port = process.env.PORT || 6000;
@@ -19,7 +18,7 @@ app.use(cors());
 app.set('trust proxy', 1);
 
 const limiter = rateLimit({
-  windowMs: 1000,
+  windowMs: 10 * 60 * 1000,
   max: 1,
 });
 
