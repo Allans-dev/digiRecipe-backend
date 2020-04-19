@@ -1,21 +1,22 @@
 require("dotenv").config();
-require('./src/models/User');
+require("./src/models/User");
+require("./src/models/Recipe");
 const express = require("express");
 const rateLimit = require("express-rate-limit");
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
-const requireAuth = require('./src/middlewares/requireAuth');
-const authRoutes = require('./src/routes/authRoutes');
+const requireAuth = require("./src/middlewares/requireAuth");
+const authRoutes = require("./src/routes/authRoutes");
 
 const app = express();
 const mongoUri = process.env.MONGODB_URI;
 
-const cors = require('cors');
+const cors = require("cors");
 const port = process.env.PORT || 6000;
 
 app.use(cors());
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000,
@@ -34,15 +35,17 @@ const connectDb = async () => {
       useCreateIndex: true,
       useUnifiedTopology: true,
     });
-    console.log('Connected to mongo instance');
+    console.log("Connected to mongo instance");
   } catch (error) {
-    console.log('error connecting to mongo', error);
+    console.log("error connecting to mongo", error);
     process.exit(1);
   }
-}
+};
 
 connectDb();
 
-app.get("/", requireAuth, (req, res) => res.send(`user email: ${req.user.email}`));
+app.get("/", requireAuth, (req, res) =>
+  res.send(`user email: ${req.user.email}, ${req.user._id}`)
+);
 
 app.listen(port, () => console.log(`Backend app listening on port ${port}!`));
