@@ -10,8 +10,8 @@ const recipeSchema = new mongoose.Schema({
       name: String,
       group: String,
       ingredients: String,
-      method: String,
-      notes: String,
+      method: String || null,
+      notes: String || null,
     },
   ],
 });

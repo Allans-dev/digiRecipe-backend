@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 
 const requireAuth = require("./src/middlewares/requireAuth");
 const authRoutes = require("./src/routes/authRoutes");
+const recipeRoutes = require("./src/routes/recipeRoutes");
 
 const app = express();
 const mongoUri = process.env.MONGODB_URI;
@@ -27,6 +28,7 @@ app.use(limiter);
 app.use(bodyParser.json());
 
 app.use(authRoutes);
+app.use(recipeRoutes);
 
 const connectDb = async () => {
   try {
