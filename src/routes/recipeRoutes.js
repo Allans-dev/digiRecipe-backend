@@ -10,7 +10,7 @@ router.get("/recipes", async(req, res) = {
 });
 
 router.post('/recipes', async (req, res) => {
-  const { recipe } = req.body;
+  const { userId, recipe } = req.body;
 
   if(!recipe) {
     return res.status(422).send({ error: 'You must provide a recipe' });
