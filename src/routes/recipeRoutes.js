@@ -13,13 +13,13 @@ router.get("/recipes", async (req, res) => {
 });
 
 router.post("/recipes", async (req, res) => {
-  const { userId, recipe } = req.body;
+  const { email, recipe } = req.body;
 
   if (!recipe) {
     return res.status(422).send({ error: "You must provide a recipe" });
   }
   try {
-    const recipe = new Recipe({ recipe, userId: req.user._id });
+    const recipe = new Recipe({ email, recipe, userId: req.user._id });
     await recipe.save();
     res.send(recipe);
   } catch (error) {
