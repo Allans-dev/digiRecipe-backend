@@ -1,9 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Recipe = require("../models/Recipe");
 const requireAuth = require("../middlewares/requireAuth");
 
 const router = express.Router();
+
+const Recipe = mongoose.model("Recipe");
 
 // router.use(requireAuth);
 
@@ -13,17 +14,17 @@ router.get("/recipes", async (req, res) => {
 });
 
 router.post("/recipes", async (req, res) => {
-  const { email, recipe, userId } = req.body;
+  const { name, recipe } = req.body;
 
   if (!recipe) {
     return res.status(422).send({ error: "You must provide a recipe" });
   }
   try {
-    const recipe = new Recipe({ email, recipe, userId });
-    await recipe.save();
-    res.send("success", userId;
+    const model = new Recipe({ name, recipe, userId: req.userId });
+    await model.save();
+    res.send("Successfully saved recipe");
   } catch (error) {
-    res.send(422).send({ error: err.message });
+    res.status(422).send({ error: error.message });
   }
 });
 

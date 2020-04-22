@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
-const recipeBodySchema = new mongoose.Schema({
-  timestamp: Number, //number from 1970
-  recipe: {
-    name: String,
-    group: String,
-    ingredients: String,
-    method: String || null,
-    notes: String || null,
-  },
-});
+// const recipeBodySchema = new mongoose.Schema({
+//   timestamp: Number, //number from 1970
+//   recipe: {
+//     name: String,
+//     group: String,
+//     ingredients: String,
+//     method: String || null,
+//     notes: String || null,
+//   },
+// });
 
 const recipeSchema = new mongoose.Schema({
   userId: {
@@ -20,7 +20,15 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  recipeBody: [recipeBodySchema],
+  recipeBody: [
+    {
+      name: String,
+      group: String,
+      ingredients: String,
+      method: String || null,
+      notes: String || null,
+    },
+  ],
 });
 
 mongoose.model("Recipe", recipeSchema);

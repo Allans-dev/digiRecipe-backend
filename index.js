@@ -1,6 +1,7 @@
 require("dotenv").config();
 require("./src/models/User");
 require("./src/models/Recipe");
+
 const express = require("express");
 const rateLimit = require("express-rate-limit");
 const mongoose = require("mongoose");
@@ -47,7 +48,7 @@ const connectDb = async () => {
 connectDb();
 
 app.get("/", requireAuth, (req, res) =>
-  res.send(`user email: ${req.user.email}, ${req.user._id}`)
+  res.send(`user email: ${req.user.email}`)
 );
 
 app.listen(port, () => console.log(`Backend app listening on port ${port}!`));
