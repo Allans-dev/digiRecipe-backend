@@ -6,7 +6,7 @@ const router = express.Router();
 
 const Recipe = mongoose.model("Recipe");
 
-// router.use(requireAuth);
+router.use(requireAuth);
 
 router.get("/recipes", async (req, res) => {
   const recipes = await Recipe.find({ userId: req.user._id });
@@ -20,7 +20,7 @@ router.post("/recipes", async (req, res) => {
     return res.status(422).send({ error: "You must provide a recipe" });
   }
   try {
-    const model = new Recipe({ name, recipe, userId: req.userId });
+    const model = new Recipe({ name, recipe, userId: req.user._id });
     await model.save();
     res.send("Successfully saved recipe");
   } catch (error) {
